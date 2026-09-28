@@ -6,7 +6,6 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 import kotlinx.coroutines.CoroutineScope
@@ -19,6 +18,7 @@ class SingleViewActivity : AppCompatActivity() {
 
     private var player: ExoPlayer? = null
     private var cam: Camera? = null
+    private var ptzPanelVisible = false
     private val scope = CoroutineScope(Dispatchers.Main)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +38,8 @@ class SingleViewActivity : AppCompatActivity() {
             val p = ExoPlayer.Builder(this).build()
             player = p
             pv.player = p
-            p.setMediaItem(MediaItem.fromUri(url))
+            val source = PlayerFactory.build(this, url)
+            p.setMediaSource(source)
             p.prepare()
             p.playWhenReady = true
         }
@@ -49,11 +50,25 @@ class SingleViewActivity : AppCompatActivity() {
     private fun setupPtz() {
         val c = cam ?: return
         val panel = findViewById<LinearLayout>(R.id.ptz_panel)
+        val toggle = findViewById<Button>(R.id.btn_ptz_toggle)
+
         if (!c.ptzEnabled || c.ptzHost.isBlank()) {
             panel.visibility = android.view.View.GONE
+            toggle.visibility = android.view.View.GONE
             return
         }
-        panel.visibility = android.view.View.VISIBLE
+
+        // Toggle-Button zeigen, Panel startet ausgeblendet
+        toggle.visibility = android.view.View.VISIBLE
+        panel.visibility = android.view.View.GONE
+        ptzPanelVisible = false
+
+        toggle.setOnClickListener {
+            ptzPanelVisible = !ptzPanelVisible
+            panel.visibility = if (ptzPanelVisible) android.view.View.VISIBLE
+                               else android.view.View.GONE
+            toggle.isSelected = ptzPanelVisible
+        }
 
         // Festpositionen laden
         val presetRow = findViewById<LinearLayout>(R.id.preset_row)
