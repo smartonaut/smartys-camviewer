@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 import androidx.recyclerview.widget.RecyclerView
@@ -37,12 +36,17 @@ class CameraAdapter(
         if (holder.player == null) {
             holder.player = ExoPlayer.Builder(holder.itemView.context).build()
             holder.playerView.player = holder.player
+            // WICHTIG: Controller aus, sonst schluckt PlayerView die Klicks
+            // und die SingleView oeffnet sich nie.
+            holder.playerView.useController = false
+            holder.playerView.isClickable = true
         }
         val player = holder.player!!
 
         val url = cam.displayUrl()
         if (url.isNotBlank()) {
-            player.setMediaItem(MediaItem.fromUri(url))
+            val source = PlayerFactory.build(holder.itemView.context, url)
+            player.setMediaSource(source)
             player.prepare()
             player.playWhenReady = true
         } else {
@@ -51,6 +55,9 @@ class CameraAdapter(
 
         holder.itemView.setOnClickListener { onClick(cam) }
         holder.itemView.setOnLongClickListener { onLongClick(cam); true }
+        // Klick auch direkt aufs Video (sonst faengt die Surface ihn ab)
+        holder.playerView.setOnClickListener { onClick(cam) }
+        holder.playerView.setOnLongClickListener { onLongClick(cam); true }
     }
 
     override fun onViewRecycled(holder: Holder) {

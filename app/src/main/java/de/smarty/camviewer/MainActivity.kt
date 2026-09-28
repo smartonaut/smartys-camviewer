@@ -34,6 +34,15 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_add).setOnClickListener { showEditDialog(null) }
     }
 
+    override fun onResume() {
+        super.onResume()
+        // Beim Zurueckkommen aus der SingleView neu binden -> Streams starten neu.
+        // Sonst bleiben die Kacheln nach onStop/onPause schwarz.
+        if (::adapter.isInitialized) {
+            adapter.notifyDataSetChanged()
+        }
+    }
+
     private fun openSingleView(cam: Camera) {
         val intent = Intent(this, SingleViewActivity::class.java)
         intent.putExtra("camera", CameraStore.encodeCamera(cam))
