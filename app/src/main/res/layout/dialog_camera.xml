@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textColor="@color/white" />
+        <EditText
+            android:id="@+id/in_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="z.B. Hof"
+            android:inputType="text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Quelle"
+            android:textColor="@color/white" />
+        <RadioGroup
+            android:id="@+id/source_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/rb_rtsp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RTSP-URL"
+                android:checked="true" />
+            <RadioButton
+                android:id="@+id/rb_backend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CamViewer-Backend" />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="RTSP-URL"
+            android:textColor="@color/white" />
+        <EditText
+            android:id="@+id/in_rtsp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="rtsp://user:pass@10.10.23.201:554/stream1"
+            android:inputType="textUri" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Backend-Basis-URL"
+            android:textColor="@color/white" />
+        <EditText
+            android:id="@+id/in_backend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="http://10.10.23.34:8090"
+            android:inputType="textUri" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Kamera-ID (Backend)"
+            android:textColor="@color/white" />
+        <EditText
+            android:id="@+id/in_camid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="halle / hof / reifen / ..."
+            android:inputType="text" />
+
+        <!-- PTZ / Schwenken-Neigen-Zoom -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Schwenken / Neigen / Zoom (PTZ)"
+            android:textColor="@color/accent"
+            android:textStyle="bold" />
+
+        <CheckBox
+            android:id="@+id/cb_ptz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PTZ aktivieren"
+            android:textColor="@color/white" />
+
+        <EditText
+            android:id="@+id/in_ptz_host"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Kamera-IP (z.B. 10.10.23.201)"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/in_ptz_port"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ONVIF-Port (Standard 80)"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/in_ptz_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ONVIF-Benutzer (Standard admin)"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/in_ptz_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ONVIF-Passwort"
+            android:inputType="textPassword" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+            <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Abbrechen" />
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:text="Speichern" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
