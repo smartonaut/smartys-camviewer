@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/bg_dark"
+    android:padding="8dp">
+
+    <androidx.media3.ui.PlayerView
+        android:id="@+id/player_view"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="#000000" />
+
+    <TextView
+        android:id="@+id/cam_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Kamera"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:padding="4dp" />
+</LinearLayout>
