@@ -43,6 +43,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        // Alle Kachel-Streams pausieren, solange die App im Hintergrund ist
+        // (z.B. waehrend die SingleView offen ist) — spart Akku/Bandbreite.
+        if (::adapter.isInitialized) {
+            adapter.pauseAll()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // ExoPlayer-Instanzen der Kacheln freigeben (Decoder, RTSP-Sockets),
+        // sonst leakt jeder Activity-Neuaufbau einen Satz Player.
+        if (::adapter.isInitialized) {
+            adapter.releaseAll()
+        }
+    }
+
     private fun openSingleView(cam: Camera) {
         val intent = Intent(this, SingleViewActivity::class.java)
         intent.putExtra("camera", CameraStore.encodeCamera(cam))
@@ -115,6 +133,10 @@ class MainActivity : AppCompatActivity() {
                     inRtsp.error = "RTSP-URL fehlt"
                     return@setOnClickListener
                 }
+                if (sourceType == "backend" && inCamId.text.isNullOrBlank()) {
+                    inCamId.error = "Kamera-ID fehlt"
+                    return@setOnClickListener
+                }
                 if (cbPtz.isChecked && inPtzHost.text.isNullOrBlank()) {
                     inPtzHost.error = "PTZ-Host fehlt"
                     return@setOnClickListener
@@ -155,10 +177,5 @@ class MainActivity : AppCompatActivity() {
             }
             .setNegativeButton("Abbrechen", null)
             .show()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        // Player werden vom Adapter via onViewRecycled gestoppt
     }
 }

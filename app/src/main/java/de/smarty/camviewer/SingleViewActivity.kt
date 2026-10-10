@@ -11,6 +11,7 @@ import androidx.media3.ui.PlayerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -25,8 +26,10 @@ class SingleViewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_single)
 
-        val camJson = intent.getStringExtra("camera") ?: run { finish(); return }
-        cam = CameraStore.decodeCamera(camJson)
+        val camJson = intent.getStringExtra("camera")
+        // Ungueltige/fehlende Kamera-Daten -> Activity direkt beenden,
+        // sonst haengt ein schwarzer Screen ohne Funktion.
+        cam = camJson?.let { CameraStore.decodeCamera(it) } ?: run { finish(); return }
 
         val pv = findViewById<PlayerView>(R.id.player_view)
         findViewById<TextView>(R.id.tv_title).text = cam?.name ?: "Kamera"
@@ -74,6 +77,9 @@ class SingleViewActivity : AppCompatActivity() {
         val presetRow = findViewById<LinearLayout>(R.id.preset_row)
         scope.launch {
             val presets = OnvifPtz.getPresets(c)
+            // Activity kann waehrend des Netzwerk-Calls beendet worden sein
+            // -> Views nicht mehr anfassen.
+            if (isFinishing || isDestroyed) return@launch
             val shown = presets.take(8)
             for (p in shown) {
                 val b = Button(this@SingleViewActivity)
@@ -125,13 +131,24 @@ class SingleViewActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        // Stream läuft weiter, wenn die Activity wieder im Vordergrund ist.
+        player?.play()
+    }
+
     override fun onStop() {
         super.onStop()
+        // Stream pausieren: sonst läuft RTSP im Hintergrund weiter
+        // (Akku, Bandbreite, Netzwerklast im MultiView-Betrieb).
         player?.pause()
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        // Alle laufenden PTZ-Jobs abbrechen (ContinuousMove-Schleife,
+        // Preset-Loads) — sonst leben die Coroutines ueber die Activity hinaus.
+        scope.cancel()
         player?.release()
         player = null
     }

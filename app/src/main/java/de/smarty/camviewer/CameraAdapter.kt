@@ -14,6 +14,9 @@ class CameraAdapter(
     private val onLongClick: (Camera) -> Unit
 ) : RecyclerView.Adapter<CameraAdapter.Holder>() {
 
+    /** Alle erstellten Player (fuer pauseAll/releaseAll ueber die Activity). */
+    private val players = mutableSetOf<ExoPlayer>()
+
     class Holder(v: View) : RecyclerView.ViewHolder(v) {
         val playerView: PlayerView = v.findViewById(R.id.player_view)
         val nameView: TextView = v.findViewById(R.id.cam_name)
@@ -34,8 +37,10 @@ class CameraAdapter(
 
         // Player pro Kachel (wiederverwenden)
         if (holder.player == null) {
-            holder.player = ExoPlayer.Builder(holder.itemView.context).build()
-            holder.playerView.player = holder.player
+            val p = ExoPlayer.Builder(holder.itemView.context).build()
+            holder.player = p
+            players.add(p)
+            holder.playerView.player = p
             // WICHTIG: Controller aus, sonst schluckt PlayerView die Klicks
             // und die SingleView oeffnet sich nie.
             holder.playerView.useController = false
@@ -61,8 +66,28 @@ class CameraAdapter(
     }
 
     override fun onViewRecycled(holder: Holder) {
-        holder.player?.stop()
+        // stop() allein leakt die ExoPlayer-Instanz (Decoder-Threads,
+        // Netwerk-Sockets); recycelte Kacheln muessen released werden.
+        // onBindViewHolder baut den Player bei erneuter Bindung neu.
+        releasePlayer(holder)
         super.onViewRecycled(holder)
+    }
+
+    private fun releasePlayer(holder: Holder) {
+        holder.player?.let { players.remove(it); it.release() }
+        holder.player = null
+        holder.playerView.player = null
+    }
+
+    /** Alle Kachel-Streams pausieren (App/Activity in den Hintergrund). */
+    fun pauseAll() {
+        players.forEach { it.pause() }
+    }
+
+    /** Alle Player freigeben (Activity wird zerstoert). */
+    fun releaseAll() {
+        players.forEach { it.release() }
+        players.clear()
     }
 
     override fun getItemCount(): Int = cameras.size
