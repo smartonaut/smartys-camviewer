@@ -28,6 +28,15 @@ object OnvifPtz {
 
     data class Preset(val token: String, val name: String)
 
+    /** XML-Sonderzeichen escapen — Passwoerter/Namen mit & < > " ' wuerden
+     *  sonst die SOAP-Envelope zerbrechen oder XML-Injection ermoeglichen. */
+    private fun xmlEscape(s: String): String = s
+        .replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace("\"", "&quot;")
+        .replace("'", "&apos;")
+
     // ---- WS-Security (PasswordDigest) ----
     private fun wsse(user: String, pw: String): String {
         val nonce = ByteArray(16).also { SecureRandom().nextBytes(it) }
@@ -39,7 +48,7 @@ object OnvifPtz {
             MessageDigest.getInstance("SHA-1").digest(digestInput), Base64.NO_WRAP)
         val nonceB64 = Base64.encodeToString(nonce, Base64.NO_WRAP)
         return "<wsse:Security xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\" " +
-            "soap-env:mustUnderstand=\"1\"><wsse:UsernameToken><wsse:Username>$user</wsse:Username>" +
+            "soap-env:mustUnderstand=\"1\"><wsse:UsernameToken><wsse:Username>${xmlEscape(user)}</wsse:Username>" +
             "<wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordDigest\">$digest</wsse:Password>" +
             "<wsse:Nonce EncodingType=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary\">$nonceB64</wsse:Nonce>" +
             "<wsu:Created xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\">$created</wsu:Created>" +
@@ -80,8 +89,8 @@ object OnvifPtz {
         }
 
     suspend fun gotoPreset(cam: Camera, token: String): Result<String> {
-        val body = "<tptz:GotoPreset><tptz:ProfileToken>${cam.ptzProfile}</tptz:ProfileToken>" +
-            "<tptz:PresetToken>$token</tptz:PresetToken><tptz:Speed>1.0</tptz:Speed></tptz:GotoPreset>"
+        val body = "<tptz:GotoPreset><tptz:ProfileToken>${xmlEscape(cam.ptzProfile)}</tptz:ProfileToken>" +
+            "<tptz:PresetToken>${xmlEscape(token)}</tptz:PresetToken><tptz:Speed>1.0</tptz:Speed></tptz:GotoPreset>"
         return soap(cam, "http://www.onvif.org/ver20/ptz/wsdl/GotoPreset", body)
     }
 
@@ -95,13 +104,13 @@ object OnvifPtz {
     }
 
     suspend fun stop(cam: Camera): Result<String> {
-        val body = "<tptz:Stop><tptz:ProfileToken>${cam.ptzProfile}</tptz:ProfileToken>" +
+        val body = "<tptz:Stop><tptz:ProfileToken>${xmlEscape(cam.ptzProfile)}</tptz:ProfileToken>" +
             "<tptz:PanTilt>true</tptz:PanTilt><tptz:Zoom>true</tptz:Zoom></tptz:Stop>"
         return soap(cam, "http://www.onvif.org/ver20/ptz/wsdl/Stop", body)
     }
 
     suspend fun getPresets(cam: Camera): List<Preset> = withContext(Dispatchers.IO) {
-        val body = "<tptz:GetPresets><tptz:ProfileToken>${cam.ptzProfile}</tptz:ProfileToken></tptz:GetPresets>"
+        val body = "<tptz:GetPresets><tptz:ProfileToken>${xmlEscape(cam.ptzProfile)}</tptz:ProfileToken></tptz:GetPresets>"
         val res = soap(cam, "http://www.onvif.org/ver20/ptz/wsdl/GetPresets", body)
         res.getOrNull()?.let { parsePresets(it) } ?: emptyList()
     }
