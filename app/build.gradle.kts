@@ -4,6 +4,8 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization") version "2.0.21"
 }
 
+import java.util.Properties
+
 android {
     namespace = "de.smarty.camviewer"
     compileSdk = 35
@@ -18,7 +20,7 @@ android {
 
     signingConfigs {
         create("release") {
-            val props = java.util.Properties().apply {
+            val props = Properties().apply {
                 val f = rootProject.file("keystore.properties")
                 if (f.exists()) load(f.inputStream())
             }
