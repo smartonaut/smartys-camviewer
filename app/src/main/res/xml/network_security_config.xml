@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Kamera-Kiosk: lokale ONVIF-/Backend-Kameras laufen über http:// auf
+     privaten IPs (10.x / 192.168.x), deren Adressen der Nutzer selbst einträgt
+     und die deshalb nicht fest als Host aufgelistet werden können. Cleartext
+     bleibt erlaubt — aber zentral dokumentiert statt als pauschales
+     Manifest-Flag, damit HTTPS für das öffentliche Backend später gezielt
+     erzwungen werden kann. -->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>
