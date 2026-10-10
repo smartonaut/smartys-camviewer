@@ -9,7 +9,7 @@ data class Camera(
     val sourceType: String = "rtsp",       // "rtsp" oder "backend"
     val rtspUrl: String = "",               // fuer sourceType=rtsp
     val backendCamId: String = "",          // fuer sourceType=backend (go2rtc src)
-    val backendBase: String = "http://10.10.23.34:8090",
+    val backendBase: String = "",
     val username: String = "",
     val password: String = "",
     // ONVIF-PTZ (optional, fuer Kameras mit Schwenk/Neigen/Zoom)

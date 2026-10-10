@@ -55,7 +55,7 @@
             android:id="@+id/in_rtsp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="rtsp://user:pass@10.10.23.201:554/stream1"
+            android:hint="rtsp://user:pass@kamera-ip:554/stream1"
             android:inputType="textUri" />
 
         <TextView
@@ -68,7 +68,7 @@
             android:id="@+id/in_backend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="http://10.10.23.34:8090"
+            android:hint="Backend-URL (optional)"
             android:inputType="textUri" />
 
         <TextView
@@ -104,7 +104,7 @@
             android:id="@+id/in_ptz_host"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Kamera-IP (z.B. 10.10.23.201)"
+            android:hint="Kamera-IP"
             android:inputType="text" />
 
         <EditText
