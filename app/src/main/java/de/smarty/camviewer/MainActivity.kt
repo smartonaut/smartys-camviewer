@@ -146,7 +146,7 @@ class MainActivity : AppCompatActivity() {
                     name = name,
                     sourceType = sourceType,
                     rtspUrl = inRtsp.text.toString().trim(),
-                    backendBase = inBackend.text.toString().trim().ifBlank { "http://192.0.2.10:8090" },
+                    backendBase = inBackend.text.toString().trim(),
                     backendCamId = inCamId.text.toString().trim(),
                     ptzEnabled = cbPtz.isChecked,
                     ptzHost = inPtzHost.text.toString().trim(),
