@@ -16,7 +16,7 @@
         android:id="@+id/cam_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Kamera"
+        android:text="@string/label_camera"
         android:textColor="@color/white"
         android:textSize="14sp"
         android:padding="4dp" />

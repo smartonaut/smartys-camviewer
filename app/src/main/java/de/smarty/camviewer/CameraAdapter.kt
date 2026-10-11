@@ -32,7 +32,7 @@ class CameraAdapter(
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val cam = cameras[position]
-        holder.nameView.text = cam.name.ifBlank { "Kamera ${position + 1}" }
+        holder.nameView.text = cam.name.ifBlank { holder.itemView.context.getString(R.string.label_camera_n, position + 1) }
         holder.cameraId = cam.id
 
         // Player pro Kachel (wiederverwenden)

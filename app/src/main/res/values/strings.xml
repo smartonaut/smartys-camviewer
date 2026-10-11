@@ -1,3 +1,36 @@
 <resources>
     <string name="app_name">Smartys CamViewer</string>
+    <string name="label_app_title">Smartys CamViewer</string>
+    <string name="btn_add_camera">+ Kamera</string>
+    <string name="label_camera">Kamera</string>
+    <string name="label_camera_n">Kamera %d</string>
+    <string name="label_name">Name</string>
+    <string name="hint_name">z.B. Hof</string>
+    <string name="label_source">Quelle</string>
+    <string name="label_rtsp_url">RTSP-URL</string>
+    <string name="label_backend">CamViewer-Backend</string>
+    <string name="hint_rtsp">rtsp://user:pass@kamera-ip:554/stream1</string>
+    <string name="label_backend_base">Backend-Basis-URL</string>
+    <string name="hint_backend">Backend-URL (optional)</string>
+    <string name="label_cam_id">Kamera-ID (Backend)</string>
+    <string name="hint_cam_id">halle / hof / reifen / ...</string>
+    <string name="label_ptz">Schwenken / Neigen / Zoom (PTZ)</string>
+    <string name="cb_ptz">PTZ aktivieren</string>
+    <string name="hint_ptz_host">Kamera-IP</string>
+    <string name="hint_ptz_port">ONVIF-Port (Standard 80)</string>
+    <string name="hint_ptz_user">ONVIF-Benutzer (Standard admin)</string>
+    <string name="hint_ptz_pass">ONVIF-Passwort</string>
+    <string name="label_ptz_short">PTZ</string>
+    <string name="menu_edit">Bearbeiten</string>
+    <string name="menu_delete">Löschen</string>
+    <string name="title_add_camera">Kamera hinzufügen</string>
+    <string name="title_edit_camera">Kamera bearbeiten</string>
+    <string name="action_cancel">Abbrechen</string>
+    <string name="action_save">Speichern</string>
+    <string name="error_name_missing">Name fehlt</string>
+    <string name="error_rtsp_missing">RTSP-URL fehlt</string>
+    <string name="error_camid_missing">Kamera-ID fehlt</string>
+    <string name="error_ptzhost_missing">PTZ-Host fehlt</string>
+    <string name="title_delete_camera">Kamera löschen</string>
+    <string name="msg_remove_camera">%s entfernen?</string>
 </resources>

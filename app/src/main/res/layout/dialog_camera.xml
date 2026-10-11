@@ -12,20 +12,20 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name"
+            android:text="@string/label_name"
             android:textColor="@color/white" />
         <EditText
             android:id="@+id/in_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="z.B. Hof"
+            android:hint="@string/hint_name"
             android:inputType="text" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Quelle"
+            android:text="@string/label_source"
             android:textColor="@color/white" />
         <RadioGroup
             android:id="@+id/source_group"
@@ -36,52 +36,52 @@
                 android:id="@+id/rb_rtsp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RTSP-URL"
+                android:text="@string/label_rtsp_url"
                 android:checked="true" />
             <RadioButton
                 android:id="@+id/rb_backend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="CamViewer-Backend" />
+                android:text="@string/label_backend" />
         </RadioGroup>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="RTSP-URL"
+            android:text="@string/label_rtsp_url"
             android:textColor="@color/white" />
         <EditText
             android:id="@+id/in_rtsp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="rtsp://user:pass@kamera-ip:554/stream1"
+            android:hint="@string/hint_rtsp"
             android:inputType="textUri" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Backend-Basis-URL"
+            android:text="@string/label_backend_base"
             android:textColor="@color/white" />
         <EditText
             android:id="@+id/in_backend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Backend-URL (optional)"
+            android:hint="@string/hint_backend"
             android:inputType="textUri" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Kamera-ID (Backend)"
+            android:text="@string/label_cam_id"
             android:textColor="@color/white" />
         <EditText
             android:id="@+id/in_camid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="halle / hof / reifen / ..."
+            android:hint="@string/hint_cam_id"
             android:inputType="text" />
 
         <!-- PTZ / Schwenken-Neigen-Zoom -->
@@ -89,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Schwenken / Neigen / Zoom (PTZ)"
+            android:text="@string/label_ptz"
             android:textColor="@color/accent"
             android:textStyle="bold" />
 
@@ -97,35 +97,35 @@
             android:id="@+id/cb_ptz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PTZ aktivieren"
+            android:text="@string/cb_ptz"
             android:textColor="@color/white" />
 
         <EditText
             android:id="@+id/in_ptz_host"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Kamera-IP"
+            android:hint="@string/hint_ptz_host"
             android:inputType="text" />
 
         <EditText
             android:id="@+id/in_ptz_port"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="ONVIF-Port (Standard 80)"
+            android:hint="@string/hint_ptz_port"
             android:inputType="number" />
 
         <EditText
             android:id="@+id/in_ptz_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="ONVIF-Benutzer (Standard admin)"
+            android:hint="@string/hint_ptz_user"
             android:inputType="text" />
 
         <EditText
             android:id="@+id/in_ptz_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="ONVIF-Passwort"
+            android:hint="@string/hint_ptz_pass"
             android:inputType="textPassword" />
     </LinearLayout>
 </ScrollView>

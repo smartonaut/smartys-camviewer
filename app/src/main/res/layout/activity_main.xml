@@ -16,7 +16,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Smartys CamViewer"
+            android:text="@string/label_app_title"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -25,7 +25,7 @@
             android:id="@+id/btn_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="+ Kamera" />
+            android:text="@string/btn_add_camera" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
