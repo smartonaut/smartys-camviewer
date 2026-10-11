@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Smartys CamViewer</string>
+    <string name="label_app_title">Smartys CamViewer</string>
+    <string name="btn_add_camera">+ Camera</string>
+    <string name="label_camera">Camera</string>
+    <string name="label_camera_n">Camera %d</string>
+    <string name="label_name">Name</string>
+    <string name="hint_name">e.g. Yard</string>
+    <string name="label_source">Source</string>
+    <string name="label_rtsp_url">RTSP URL</string>
+    <string name="label_backend">CamViewer backend</string>
+    <string name="hint_rtsp">rtsp://user:pass@camera-ip:554/stream1</string>
+    <string name="label_backend_base">Backend base URL</string>
+    <string name="hint_backend">Backend URL (optional)</string>
+    <string name="label_cam_id">Camera ID (backend)</string>
+    <string name="hint_cam_id">hall / yard / tires / ...</string>
+    <string name="label_ptz">Pan / Tilt / Zoom (PTZ)</string>
+    <string name="cb_ptz">Enable PTZ</string>
+    <string name="hint_ptz_host">Camera IP</string>
+    <string name="hint_ptz_port">ONVIF port (default 80)</string>
+    <string name="hint_ptz_user">ONVIF user (default admin)</string>
+    <string name="hint_ptz_pass">ONVIF password</string>
+    <string name="label_ptz_short">PTZ</string>
+    <string name="menu_edit">Edit</string>
+    <string name="menu_delete">Delete</string>
+    <string name="title_add_camera">Add camera</string>
+    <string name="title_edit_camera">Edit camera</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_save">Save</string>
+    <string name="error_name_missing">Name missing</string>
+    <string name="error_rtsp_missing">RTSP URL missing</string>
+    <string name="error_camid_missing">Camera ID missing</string>
+    <string name="error_ptzhost_missing">PTZ host missing</string>
+    <string name="title_delete_camera">Delete camera</string>
+    <string name="msg_remove_camera">Remove %s?</string>
+</resources>

@@ -32,7 +32,7 @@ class SingleViewActivity : AppCompatActivity() {
         cam = camJson?.let { CameraStore.decodeCamera(it) } ?: run { finish(); return }
 
         val pv = findViewById<PlayerView>(R.id.player_view)
-        findViewById<TextView>(R.id.tv_title).text = cam?.name ?: "Kamera"
+        findViewById<TextView>(R.id.tv_title).text = cam?.name ?: getString(R.string.label_camera)
         findViewById<Button>(R.id.btn_back).setOnClickListener { finish() }
 
         // Player

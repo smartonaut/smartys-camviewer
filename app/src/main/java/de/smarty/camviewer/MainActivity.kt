@@ -69,8 +69,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun showCameraMenu(cam: Camera) {
         AlertDialog.Builder(this)
-            .setTitle(cam.name.ifBlank { "Kamera" })
-            .setItems(arrayOf("Bearbeiten", "Löschen")) { _, which ->
+            .setTitle(cam.name.ifBlank { getString(R.string.label_camera) })
+            .setItems(arrayOf(getString(R.string.menu_edit), getString(R.string.menu_delete))) { _, which ->
                 when (which) {
                     0 -> showEditDialog(cam)
                     1 -> confirmDelete(cam)
@@ -114,10 +114,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         val dialog = AlertDialog.Builder(this)
-            .setTitle(if (existing == null) "Kamera hinzufügen" else "Kamera bearbeiten")
+            .setTitle(if (existing == null) getString(R.string.title_add_camera) else getString(R.string.title_edit_camera))
             .setView(view)
-            .setNegativeButton("Abbrechen", null)
-            .setPositiveButton("Speichern", null)
+            .setNegativeButton(getString(R.string.action_cancel), null)
+            .setPositiveButton(getString(R.string.action_save), null)
             .create()
 
         dialog.setOnShowListener {
@@ -126,19 +126,19 @@ class MainActivity : AppCompatActivity() {
                 val sourceType = if (rbBackend.isChecked) "backend" else "rtsp"
 
                 if (name.isBlank()) {
-                    inName.error = "Name fehlt"
+                    inName.error = getString(R.string.error_name_missing)
                     return@setOnClickListener
                 }
                 if (sourceType == "rtsp" && inRtsp.text.isNullOrBlank()) {
-                    inRtsp.error = "RTSP-URL fehlt"
+                    inRtsp.error = getString(R.string.error_rtsp_missing)
                     return@setOnClickListener
                 }
                 if (sourceType == "backend" && inCamId.text.isNullOrBlank()) {
-                    inCamId.error = "Kamera-ID fehlt"
+                    inCamId.error = getString(R.string.error_camid_missing)
                     return@setOnClickListener
                 }
                 if (cbPtz.isChecked && inPtzHost.text.isNullOrBlank()) {
-                    inPtzHost.error = "PTZ-Host fehlt"
+                    inPtzHost.error = getString(R.string.error_ptzhost_missing)
                     return@setOnClickListener
                 }
 
@@ -169,13 +169,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun confirmDelete(cam: Camera) {
         AlertDialog.Builder(this)
-            .setTitle("Kamera löschen")
-            .setMessage("${cam.name.ifBlank { "Kamera" }} entfernen?")
-            .setPositiveButton("Löschen") { _, _ ->
+            .setTitle(getString(R.string.title_delete_camera))
+            .setMessage(getString(R.string.msg_remove_camera, cam.name.ifBlank { getString(R.string.label_camera) }))
+            .setPositiveButton(getString(R.string.menu_delete)) { _, _ ->
                 cameras.removeAll { it.id == cam.id }
                 refresh()
             }
-            .setNegativeButton("Abbrechen", null)
+            .setNegativeButton(getString(R.string.action_cancel), null)
             .show()
     }
 }
